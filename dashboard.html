@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zolalingo - Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #fce4ec, #f3e5f5, #e8eaf6);
+            min-height: 100vh;
+            font-family: 'Georgia', serif;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(10px);
+        }
+        .logo { font-size: 24px; font-weight: bold; color: #7b5ea7; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a {
+            color: #a07bb5;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #7b5ea7; }
+        .logout-btn {
+            background: none;
+            border: 2px solid #d4b8e0;
+            border-radius: 10px;
+            padding: 6px 16px;
+            color: #a07bb5;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        .logout-btn:hover { border-color: #7b5ea7; color: #7b5ea7; }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .welcome {
+            margin-bottom: 40px;
+        }
+        .welcome h1 {
+            font-size: 32px;
+            color: #7b5ea7;
+            margin-bottom: 6px;
+        }
+        .welcome p {
+            color: #a07bb5;
+            font-size: 15px;
+            font-style: italic;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 18px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(123,94,167,0.1);
+        }
+        .stat-card .emoji { font-size: 32px; margin-bottom: 10px; }
+        .stat-card .number { font-size: 28px; font-weight: bold; color: #7b5ea7; }
+        .stat-card .label { font-size: 13px; color: #a07bb5; margin-top: 4px; }
+        .section-title {
+            font-size: 18px;
+            color: #7b5ea7;
+            margin-bottom: 16px;
+        }
+        .languages-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .lang-progress {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 18px;
+            padding: 20px 25px;
+            flex: 1;
+            min-width: 180px;
+            box-shadow: 0 4px 20px rgba(123,94,167,0.1);
+        }
+        .lang-progress .flag { font-size: 28px; margin-bottom: 8px; }
+        .lang-progress .lang-name { font-size: 14px; color: #7b5ea7; font-weight: bold; margin-bottom: 10px; }
+        .progress-bar {
+            background: #e8d5f0;
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: #7b5ea7;
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s;
+        }
+        .progress-pct { font-size: 12px; color: #a07bb5; margin-top: 6px; }
+        .action-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .action-card {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(123,94,167,0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .action-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(123,94,167,0.2); }
+        .action-card .icon { font-size: 36px; margin-bottom: 12px; }
+        .action-card h3 { color: #7b5ea7; font-size: 18px; margin-bottom: 6px; }
+        .action-card p { color: #a07bb5; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">Zolalingo</div>
+    <div class="nav-links">
+        <a href="dashboard.html">Home</a>
+        <a href="lesson.html">Lessons</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="languages.html">Languages</a>
+        <button class="logout-btn" onclick="window.location.href='index.html'">Log out</button>
+    </div>
+</div>
+
+<div class="container">
+    <div class="welcome">
+        <h1>Welcome back! 👋</h1>
+        <p>Continue your multilingual journey today</p>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="emoji">🔥</div>
+            <div class="number">7</div>
+            <div class="label">Day Streak</div>
+        </div>
+        <div class="stat-card">
+            <div class="emoji">📚</div>
+            <div class="number">42</div>
+            <div class="label">Words Learned</div>
+        </div>
+        <div class="stat-card">
+            <div class="emoji">⭐</div>
+            <div class="number">85%</div>
+            <div class="label">Quiz Average</div>
+        </div>
+    </div>
+
+    <div class="section-title">Your Languages</div>
+    <div class="languages-row">
+        <div class="lang-progress">
+            <div class="flag">🇩🇪</div>
+            <div class="lang-name">German</div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
+            <div class="progress-pct">65% complete</div>
+        </div>
+        <div class="lang-progress">
+            <div class="flag">🇫🇷</div>
+            <div class="lang-name">French</div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 48%"></div></div>
+            <div class="progress-pct">48% complete</div>
+        </div>
+        <div class="lang-progress">
+            <div class="flag">🇪🇸</div>
+            <div class="lang-name">Spanish</div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 30%"></div></div>
+            <div class="progress-pct">30% complete</div>
+        </div>
+    </div>
+
+    <div class="section-title">Continue Learning</div>
+    <div class="action-cards">
+        <a class="action-card" href="lesson.html">
+            <div class="icon">📖</div>
+            <h3>Today's Lesson</h3>
+            <p>Learn 5 new words across all 3 languages</p>
+        </a>
+        <a class="action-card" href="quiz.html">
+            <div class="icon">🧠</div>
+            <h3>Quick Quiz</h3>
+            <p>Test what you've learned so far</p>
+        </a>
+        <a class="action-card" href="languages.html">
+            <div class="icon">🌍</div>
+            <h3>Change Languages</h3>
+            <p>Switch or add new languages to your set</p>
+        </a>
+        <a class="action-card" href="profile.html">
+            <div class="icon">👤</div>
+            <h3>My Profile</h3>
+            <p>View your progress and achievements</p>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

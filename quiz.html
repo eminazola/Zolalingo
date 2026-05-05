@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zolalingo - Quiz</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #fce4ec, #f3e5f5, #e8eaf6);
+            min-height: 100vh;
+            font-family: 'Georgia', serif;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(10px);
+            width: 100%;
+        }
+        .logo { font-size: 24px; font-weight: bold; color: #7b5ea7; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { color: #a07bb5; text-decoration: none; font-size: 14px; }
+        .nav-links a:hover { color: #7b5ea7; }
+        .logout-btn {
+            background: none;
+            border: 2px solid #d4b8e0;
+            border-radius: 10px;
+            padding: 6px 16px;
+            color: #a07bb5;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: 'Georgia', serif;
+        }
+        .logout-btn:hover { border-color: #7b5ea7; color: #7b5ea7; }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        .score {
+            background: white;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 13px;
+            color: #a07bb5;
+            margin-bottom: 30px;
+        }
+        .question-card {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(123,94,167,0.1);
+            margin-bottom: 30px;
+        }
+        .question-label { font-size: 13px; color: #a07bb5; margin-bottom: 10px; font-style: italic; }
+        .question-word { font-size: 48px; color: #7b5ea7; font-weight: bold; margin-bottom: 8px; }
+        .question-lang { font-size: 13px; color: #c4a0d4; }
+        .feedback { margin-top: 20px; font-size: 15px; color: #7b5ea7; min-height: 24px; }
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            width: 100%;
+            max-width: 600px;
+        }
+        .option-btn {
+            background: rgba(255,255,255,0.8);
+            border: 2px solid #d4b8e0;
+            border-radius: 14px;
+            padding: 18px;
+            font-size: 16px;
+            color: #7b5ea7;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Georgia', serif;
+        }
+        .option-btn:hover { border-color: #7b5ea7; transform: translateY(-2px); }
+        .option-btn.correct { background: #e8f5e9; border-color: #66bb6a; color: #388e3c; }
+        .option-btn.wrong { background: #fce4ec; border-color: #ef9a9a; color: #c62828; }
+        .result-card {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px 40px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(123,94,167,0.1);
+            display: none;
+        }
+        .result-emoji { font-size: 60px; margin-bottom: 20px; }
+        .result-title { font-size: 28px; color: #7b5ea7; font-weight: bold; margin-bottom: 10px; }
+        .result-score { font-size: 16px; color: #a07bb5; margin-bottom: 30px; }
+        .restart-btn {
+            background: #7b5ea7;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 40px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 5px;
+            font-family: 'Georgia', serif;
+        }
+        .restart-btn:hover { background: #5a3f7a; }
+        .lesson-btn {
+            background: white;
+            color: #7b5ea7;
+            border: 2px solid #d4b8e0;
+            border-radius: 12px;
+            padding: 14px 40px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 5px;
+            font-family: 'Georgia', serif;
+        }
+        .lesson-btn:hover { border-color: #7b5ea7; }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">Zolalingo</div>
+    <div class="nav-links">
+        <a href="dashboard.html">Home</a>
+        <a href="lesson.html">Lessons</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="profile.html">Profile</a>
+        <button class="logout-btn" onclick="window.location.href='index.html'">Log out</button>
+    </div>
+</div>
+
+<div class="content">
+    <div class="score">Score: <span id="scoreDisplay">0</span></div>
+
+    <div class="question-card" id="questionCard">
+        <div class="question-label">What is this word?</div>
+        <div class="question-word" id="questionWord">Apple</div>
+        <div class="question-lang" id="questionLang">🇩🇪 German</div>
+        <div class="feedback" id="feedback"></div>
+    </div>
+
+    <div class="options" id="optionsGrid"></div>
+
+    <div class="result-card" id="resultCard">
+        <div class="result-emoji" id="resultEmoji">🎉</div>
+        <div class="result-title" id="resultTitle">Well done!</div>
+        <div class="result-score" id="resultScore"></div>
+        <button class="restart-btn" onclick="restartQuiz()">Try Again</button>
+        <button class="lesson-btn" onclick="window.location.href='dashboard.html'">Back to Dashboard</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { word: "Apple", lang: "🇩🇪 German", answer: "Apfel", options: ["Apfel", "Wasser", "Haus", "Buch"] },
+        { word: "Water", lang: "🇫🇷 French", answer: "Eau", options: ["Pomme", "Eau", "Maison", "Ami"] },
+        { word: "House", lang: "🇪🇸 Spanish", answer: "Casa", options: ["Agua", "Libro", "Casa", "Amigo"] },
+        { word: "Book", lang: "🇩🇪 German", answer: "Buch", options: ["Buch", "Freund", "Apfel", "Haus"] },
+        { word: "Friend", lang: "🇫🇷 French", answer: "Ami", options: ["Livre", "Eau", "Ami", "Pomme"] }
+    ];
+
+    let index = 0;
+    let score = 0;
+    let answered = false;
+
+    function loadQuestion() {
+        answered = false;
+        const q = questions[index];
+        document.getElementById('questionWord').textContent = q.word;
+        document.getElementById('questionLang').textContent = q.lang;
+        document.getElementById('feedback').textContent = '';
+        const grid = document.getElementById('optionsGrid');
+        grid.innerHTML = '';
+        const shuffled = [...q.options].sort(() => Math.random() - 0.5);
+        shuffled.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.textContent = opt;
+            btn.onclick = () => checkAnswer(btn, opt, q.answer);
+            grid.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(btn, selected, correct) {
+        if (answered) return;
+        answered = true;
+        const allBtns = document.querySelectorAll('.option-btn');
+        allBtns.forEach(b => { if (b.textContent === correct) b.classList.add('correct'); });
+        if (selected === correct) {
+            score++;
+            document.getElementById('scoreDisplay').textContent = score;
+            document.getElementById('feedback').textContent = '✓ Correct!';
+            btn.classList.add('correct');
+        } else {
+            btn.classList.add('wrong');
+            document.getElementById('feedback').textContent = '✗ The answer was: ' + correct;
+        }
+        setTimeout(() => {
+            index++;
+            if (index < questions.length) { loadQuestion(); } else { showResult(); }
+        }, 1500);
+    }
+
+    function showResult() {
+        document.getElementById('questionCard').style.display = 'none';
+        document.getElementById('optionsGrid').style.display = 'none';
+        const result = document.getElementById('resultCard');
+        result.style.display = 'block';
+        const pct = (score / questions.length) * 100;
+        document.getElementById('resultScore').textContent = score + ' out of ' + questions.length + ' correct';
+        if (pct === 100) {
+            document.getElementById('resultEmoji').textContent = '🏆';
+            document.getElementById('resultTitle').textContent = 'Perfect Score!';
+        } else if (pct >= 60) {
+            document.getElementById('resultEmoji').textContent = '🎉';
+            document.getElementById('resultTitle').textContent = 'Well done!';
+        } else {
+            document.getElementById('resultEmoji').textContent = '💪';
+            document.getElementById('resultTitle').textContent = 'Keep practicing!';
+        }
+    }
+
+    function restartQuiz() {
+        index = 0; score = 0;
+        document.getElementById('scoreDisplay').textContent = 0;
+        document.getElementById('questionCard').style.display = 'block';
+        document.getElementById('optionsGrid').style.display = 'grid';
+        document.getElementById('resultCard').style.display = 'none';
+        loadQuestion();
+    }
+
+    loadQuestion();
+</script>
+
+</body>
+</html>

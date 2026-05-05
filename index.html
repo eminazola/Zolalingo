@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zolalingo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fce4ec, #f3e5f5, #e8eaf6);
+            min-height: 100vh;
+            font-family: 'Georgia', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 52px;
+            font-weight: bold;
+            color: #7b5ea7;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 16px;
+            color: #a07bb5;
+            margin-bottom: 50px;
+            font-style: italic;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            width: 380px;
+            box-shadow: 0 8px 32px rgba(123, 94, 167, 0.15);
+        }
+
+        .card h2 {
+            color: #7b5ea7;
+            margin-bottom: 25px;
+            font-size: 20px;
+        }
+
+        .lang-row {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+
+        .lang-btn {
+            background: white;
+            border: 2px solid #d4b8e0;
+            border-radius: 12px;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #7b5ea7;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover {
+            background: #7b5ea7;
+            color: white;
+        }
+
+        .start-btn {
+            background: #7b5ea7;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 40px;
+            font-size: 16px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .start-btn:hover {
+            background: #5a3f7a;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="logo">Zolalingo</div>
+<div class="tagline">Learn three languages at once</div>
+
+<div class="card">
+    <h2>Choose your languages</h2>
+    <div class="lang-row">
+        <button class="lang-btn">🇬🇧 English</button>
+        <button class="lang-btn">🇩🇪 German</button>
+        <button class="lang-btn">🇫🇷 French</button>
+    </div>
+    <button class="start-btn" onclick="window.location.href='register.html'">Start Learning →</button>
+</div>
+
+</body>
+</html>

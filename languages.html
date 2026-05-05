@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zolalingo - Choose Languages</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #fce4ec, #f3e5f5, #e8eaf6);
+            min-height: 100vh;
+            font-family: 'Georgia', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .logo { font-size: 36px; font-weight: bold; color: #7b5ea7; letter-spacing: 3px; margin-bottom: 10px; }
+        .subtitle { color: #a07bb5; font-style: italic; margin-bottom: 40px; font-size: 15px; }
+        .card {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 500px;
+            box-shadow: 0 8px 32px rgba(123,94,167,0.15);
+            text-align: center;
+        }
+        .card h2 { color: #7b5ea7; margin-bottom: 8px; font-size: 22px; }
+        .card p { color: #a07bb5; font-size: 13px; margin-bottom: 30px; }
+        .languages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 30px; }
+        .lang-card {
+            background: white;
+            border: 2px solid #d4b8e0;
+            border-radius: 14px;
+            padding: 16px 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+            color: #7b5ea7;
+        }
+        .lang-card .flag { font-size: 28px; margin-bottom: 6px; }
+        .lang-card:hover { border-color: #7b5ea7; transform: translateY(-3px); }
+        .lang-card.selected { background: #7b5ea7; color: white; border-color: #7b5ea7; }
+        .selected-info { color: #a07bb5; font-size: 13px; margin-bottom: 20px; min-height: 20px; }
+        .start-btn {
+            width: 100%;
+            background: #7b5ea7;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            opacity: 0.4;
+        }
+        .start-btn.active { opacity: 1; }
+        .start-btn.active:hover { background: #5a3f7a; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+<div class="logo">Zolalingo</div>
+<div class="subtitle">Choose exactly 3 languages to learn simultaneously</div>
+<div class="card">
+    <h2>Select Your Languages</h2>
+    <p>Pick 3 languages — you will learn them all at once</p>
+    <div class="languages-grid">
+        <div class="lang-card" onclick="selectLang(this, 'English')"><div class="flag">🇬🇧</div>English</div>
+        <div class="lang-card" onclick="selectLang(this, 'German')"><div class="flag">🇩🇪</div>German</div>
+        <div class="lang-card" onclick="selectLang(this, 'French')"><div class="flag">🇫🇷</div>French</div>
+        <div class="lang-card" onclick="selectLang(this, 'Spanish')"><div class="flag">🇪🇸</div>Spanish</div>
+        <div class="lang-card" onclick="selectLang(this, 'Italian')"><div class="flag">🇮🇹</div>Italian</div>
+        <div class="lang-card" onclick="selectLang(this, 'Arabic')"><div class="flag">🇸🇦</div>Arabic</div>
+        <div class="lang-card" onclick="selectLang(this, 'Japanese')"><div class="flag">🇯🇵</div>Japanese</div>
+        <div class="lang-card" onclick="selectLang(this, 'Portuguese')"><div class="flag">🇵🇹</div>Portuguese</div>
+        <div class="lang-card" onclick="selectLang(this, 'Dutch')"><div class="flag">🇳🇱</div>Dutch</div>
+    </div>
+    <div class="selected-info" id="selectedInfo">Select 3 languages to continue</div>
+    <button class="start-btn" id="startBtn" onclick="goToLesson()">Start Learning →</button>
+</div>
+<script>
+    let selected = [];
+    function selectLang(card, lang) {
+        if (card.classList.contains('selected')) {
+            card.classList.remove('selected');
+            selected = selected.filter(l => l !== lang);
+        } else {
+            if (selected.length >= 3) return;
+            card.classList.add('selected');
+            selected.push(lang);
+        }
+        const info = document.getElementById('selectedInfo');
+        const btn = document.getElementById('startBtn');
+        if (selected.length === 3) {
+            info.textContent = '✓ ' + selected.join(' · ');
+            btn.classList.add('active');
+        } else {
+            info.textContent = selected.length + ' selected — choose ' + (3 - selected.length) + ' more';
+            btn.classList.remove('active');
+        }
+    }
+    function goToLesson() {
+        if (selected.length === 3) window.location.href = 'dashboard.html';
+    }
+</script>
+</body>
+</html>
